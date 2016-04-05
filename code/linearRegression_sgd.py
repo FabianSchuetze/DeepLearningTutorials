@@ -11,7 +11,7 @@ import theano.tensor as T
 class LinearRegression(object):
     """ Calculate Linear Regression """
 
-    def __init__(self, n_in, input):
+    def __init__(self, n_in, input, n_out):
         """ Initialize the parameters of the logistic regression
 
         Parameters:
@@ -27,13 +27,15 @@ class LinearRegression(object):
         )
 
         self.b = theano.shared(
-            value=numpy.zeros(1, dtype=theano.config.floatX),
+            value=numpy.zeros(n_out, dtype=theano.config.floatX),
             name='b', borrow=True
         )
 
         self.y_pred = T.dot(input, self.W) + self.b[:, None]
 
         self.input = input
+
+        self.params = [self.W, self.b]
 
     def errors(self, y):
         """ The squared distance

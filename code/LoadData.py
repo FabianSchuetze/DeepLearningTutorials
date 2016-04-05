@@ -22,10 +22,12 @@ class LoadData(object):
         """
         This function loads data for the linear regression
         """
+        #import pdb; pdb.set_trace()
         data = numpy.load(self.link)
-        test_set = data[:,100:]
-        valid_set = data[:,50:100]
-        train_set = data[:,0:50]
+        n = data.shape[1]  // 3
+        test_set = data[:,2*n:]
+        valid_set = data[:,n:2*n]
+        train_set = data[:,0:n]
 
 
         def shared_dataset(data_xy, borrow=True):
